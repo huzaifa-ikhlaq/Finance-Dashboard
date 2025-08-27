@@ -187,34 +187,42 @@ export default function App() {
 
           </div>
         </div>
-
         <ul className='mt-6'>
-          {sortedTransactions.map((t, i) => {
-            const monthName = new Date(t.Date + "T00:00:00").toLocaleString('default', { month: 'long' })
+          {sortedTransactions.length === 0 ? (
+            <p className="text-center text-xl p-2">No transactions found</p>
+          ) : (
+            sortedTransactions.map((t, i) => {
+              const monthName = new Date(t.Date + "T00:00:00").toLocaleString('default', { month: 'long' })
 
-            // check if this is the first transaction of the month
-            const showMonthHeader = i === 0 || new Date(t.Date).getUTCMonth() !== new Date(sortedTransactions[i - 1].Date).getUTCMonth()
+              // check if this is the first transaction of the month
+              const showMonthHeader =
+                i === 0 ||
+                new Date(t.Date).getUTCMonth() !==
+                new Date(sortedTransactions[i - 1].Date).getUTCMonth()
 
-            return (
-              <div key={t.id}>
-                {showMonthHeader && <h2 className="text-lg font-bold">{monthName}</h2>}
+              return (
+                <div key={t.id}>
+                  {showMonthHeader && <h2 className="text-lg font-bold">{monthName}</h2>}
 
-                <li className="bg-white rounded-lg flex justify-between items-center gap-4 my-2 p-2 shadow">
-                  <span className='flex items-center gap-4'>
-                    <span><span className='text-[17px] font-semibold'>Date:</span> {t.Date}</span>
-                    <span><span className='text-[17px] font-semibold'>Type:</span> {t.Type}</span>
-                    <span><span className='text-[17px] font-semibold'>Category:</span> {t.Category}</span>
-                    <span><span className='text-[17px] font-semibold'>Amount:</span> {t.Amount}</span>
-                  </span>
-                  <span onClick={() => deletetransition(t.id)} className='cursor-pointer mr-5'>
-                    🗑️
-                  </span>
-                </li>
-              </div>
-            )
-          })}
+                  <li className="bg-white rounded-lg flex justify-between items-center gap-4 my-2 p-2 shadow">
+                    <span className='flex items-center gap-4'>
+                      <span><span className='text-[17px] font-semibold'>Date:</span> {t.Date}</span>
+                      <span><span className='text-[17px] font-semibold'>Type:</span> {t.Type}</span>
+                      <span><span className='text-[17px] font-semibold'>Category:</span> {t.Category}</span>
+                      <span><span className='text-[17px] font-semibold'>Amount:</span> {t.Amount}</span>
+                    </span>
+                    <span
+                      onClick={() => deletetransition(t.id)}
+                      className='cursor-pointer mr-5'
+                    >
+                      🗑️
+                    </span>
+                  </li>
+                </div>
+              )
+            })
+          )}
         </ul>
-
 
       </div>
 
@@ -268,15 +276,15 @@ export default function App() {
                       <span className="flex flex-col">
                         <span>
                           <span className="text-[17px] text-white font-semibold">Date: </span>
-                          <span className="text-red-400">{t.Date}</span>
+                          <span className="text-green-400">{t.Date}</span>
                         </span>
                         <span>
                           <span className="text-[17px] text-white font-semibold">Category: </span>
-                          <span className="text-red-400">{t.Category}</span>
+                          <span className="text-green-400">{t.Category}</span>
                         </span>
                         <span>
                           <span className="text-[17px] text-white font-semibold">Amount: </span>
-                          <span className="text-red-400">{t.Amount}</span>
+                          <span className="text-green-400">{t.Amount}</span>
                         </span>
                       </span>
                     </li>
