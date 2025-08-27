@@ -71,6 +71,7 @@ export default function App() {
 
   // High Expenses 
   const expenses = filteredTransaction.filter((t) => t.Type === "Expense")
+
   const sortHighExpenses = [...expenses].sort((a, b) => b.Amount - a.Amount)
 
   // Expense per day 
@@ -256,34 +257,35 @@ export default function App() {
             <div>
               <h3>Highest Expense Category:-</h3>
               <div className='bg-gray-700 rounded-lg mt-5'>
-                {sortHighExpenses.map((t) => {
-
-                  return (
-                    <div key={t.id}>
-
-                      <li className="bg-gray-800 border border-gray-600 rounded-lg flex justify-between items-center gap-4 my-2 p-2 shadow">
-                        <span className="flex flex-col">
-                          <span>
-                            <span className="text-[17px] text-white font-semibold">Date: </span>
-                            <span className="text-green-400">{t.Date}</span>
-                          </span>
-                          <span>
-                            <span className="text-[17px] text-white font-semibold">Category: </span>
-                            <span className="text-green-400">{t.Category}</span>
-                          </span>
-                          <span>
-                            <span className="text-[17px] text-white font-semibold">Amount: </span>
-                            <span className="text-green-400">{t.Amount}</span>
-                          </span>
+                {sortHighExpenses.length === 0 ? (
+                  <p className="text-white p-2">No expenses found</p>
+                ) : (
+                  sortHighExpenses.map((t) => (
+                    <li
+                      key={t.id}
+                      className="bg-gray-800 border border-gray-600 rounded-lg flex justify-between items-center gap-4 my-2 p-2 shadow"
+                    >
+                      <span className="flex flex-col">
+                        <span>
+                          <span className="text-[17px] text-white font-semibold">Date: </span>
+                          <span className="text-red-400">{t.Date}</span>
                         </span>
-                      </li>
-
-                    </div>
-                  )
-                })}
+                        <span>
+                          <span className="text-[17px] text-white font-semibold">Category: </span>
+                          <span className="text-red-400">{t.Category}</span>
+                        </span>
+                        <span>
+                          <span className="text-[17px] text-white font-semibold">Amount: </span>
+                          <span className="text-red-400">{t.Amount}</span>
+                        </span>
+                      </span>
+                    </li>
+                  ))
+                )}
               </div>
             </div>
-            <h3 className='flex items-center gap-1'>Average expense per day:  <span className="text-gray-900 font-bold">${averageExpensePerDay}</span></h3>
+
+            <h3 className='flex items-center gap-1'>Average expense per day: <span className="text-gray-900 font-bold">${averageExpensePerDay}</span></h3>
             <p className="text-sm text-gray-500">({days} days counted)</p>
           </div>
         </div>
